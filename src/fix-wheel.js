@@ -59,7 +59,7 @@ class FixWheel {
     if (mouseNeedsHelp) {
       this.rootNode = rootNode
       window.addEventListener('mousewheel', this.fixWheel, false)
-      window.addEventListener('wheel', this.fixWheel, false)
+      window.addEventListener('wheel', this.preventDefault, false)
       this.isFixed = true
     }
     return this.isFixed
@@ -73,10 +73,18 @@ class FixWheel {
   destroy () {
     if (this.isFixed) {
       window.removeEventListener('mousewheel', this.fixWheel)
-      window.removeEventListener('wheel', this.fixWheel)
+      window.removeEventListener('wheel', this.preventDefault)
       this.isFixed = false
     }
     return this.isFixed
+  }
+
+  /**
+   * prevent the default event
+   * @param  {Object} e mousewheel event
+   */
+  preventDefault (e) {
+    e.preventDefault()
   }
 
   /**
@@ -85,7 +93,7 @@ class FixWheel {
    * @param  {Number} e.deltaY wheel delta on the y-axis (if undefined simply does nothing)
    */
   fixWheel (e) {
-    e.preventDefault()
+    this.preventDefault(e)
     this.rootNode.scrollTop += e.deltaY
   }
 }

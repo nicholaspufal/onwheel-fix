@@ -3,6 +3,21 @@
 ```shell
 npm install onwheel-fix
 ```
+[Documentation](https://pixelass.github.io/onwheel-fix/)
+
+[![npm](https://img.shields.io/npm/v/onwheel-fix.svg)](https://www.npmjs.com/package/onwheel-fix)
+[![GitHub license](https://img.shields.io/github/license/pixelass/onwheel-fix.svg)](https://github.com/pixelass/onwheel-fix/blob/master/LICENSE)
+[![Travis](https://img.shields.io/travis/pixelass/onwheel-fix.svg)](https://travis-ci.org/pixelass/onwheel-fix)
+[![David](https://img.shields.io/david/pixelass/onwheel-fix.svg)](https://david-dm.org/pixelass/onwheel-fix)
+[![David](https://img.shields.io/david/dev/pixelass/onwheel-fix.svg)](https://david-dm.org/pixelass/onwheel-fix#info=devDependencies&view=table)
+[![GitHub issues](https://img.shields.io/github/issues/pixelass/onwheel-fix.svg)](https://github.com/pixelass/onwheel-fix/issues)
+[![GitHub forks](https://img.shields.io/github/forks/pixelass/onwheel-fix.svg)](https://github.com/pixelass/onwheel-fix/network)
+[![GitHub stars](https://img.shields.io/github/stars/pixelass/onwheel-fix.svg)](https://github.com/pixelass/onwheel-fix/stargazers)
+[![Coveralls branch](https://img.shields.io/coveralls/pixelass/onwheel-fix.svg)](https://coveralls.io/github/pixelass/onwheel-fix)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
 
 
 Mousewheel fix for certain browsers that just don't get it right
