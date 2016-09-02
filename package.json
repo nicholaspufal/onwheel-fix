@@ -1,0 +1,56 @@
+{
+  "name": "onwheel-fix",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "repository": "git@github.com:pixelass/onwheel-fix.git",
+  "scripts": {
+    "docs": "rm -rf docs && mkdir docs && jsdoc -c jsdoc.json",
+    "babel": "babel src --out-dir lib",
+    "build": "npm run babel; node build",
+    "prepublish": "npm run build",
+    "pretest": "standard src",
+    "release": "standard-version"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "detect-browser": "^1.4.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "commitizen": "^2.8.6",
+    "cz-conventional-changelog": "^1.2.0",
+    "errorify": "^0.3.1",
+    "hopsdoc": "^0.1.7",
+    "jsdoc": "^3.4.0",
+    "log": "^1.4.0",
+    "standard": "^8.0.0",
+    "standard-version": "^2.4.0",
+    "uglifyify": "^3.0.2"
+  },
+  "browserify": {
+    "transform": [
+      "babelify",
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "stage-0"
+          ]
+        }
+      ]
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
