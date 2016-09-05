@@ -39,7 +39,7 @@ Includes:
 ```js
 import FixWheel from 'onwheel-fix'
 
-const mousewheel = new FixWheel()
+const mousewheel = new FixWheel('mousewheel')
 
 mousewheel.init(document.body)
 mousewheel.destroy()

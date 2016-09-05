@@ -139,9 +139,10 @@ var mouseNeedsHelp = isSafari9;
  */
 
 var FixWheel = function () {
-  function FixWheel() {
+  function FixWheel(eventName) {
     _classCallCheck(this, FixWheel);
 
+    this.eventName = eventName;
     this.fixWheel = this.fixWheel.bind(this);
   }
 
@@ -157,8 +158,7 @@ var FixWheel = function () {
     value: function init(rootNode) {
       if (mouseNeedsHelp) {
         this.rootNode = rootNode;
-        window.addEventListener('mousewheel', this.fixWheel, false);
-        window.addEventListener('wheel', this.fixWheel, false);
+        window.addEventListener(this.eventName, this.fixWheel, false);
         this.isFixed = true;
       }
       return this.isFixed;
@@ -174,11 +174,21 @@ var FixWheel = function () {
     key: 'destroy',
     value: function destroy() {
       if (this.isFixed) {
-        window.removeEventListener('mousewheel', this.fixWheel);
-        window.removeEventListener('wheel', this.fixWheel);
+        window.removeEventListener(this.eventName, this.fixWheel);
         this.isFixed = false;
       }
       return this.isFixed;
+    }
+
+    /**
+     * prevent the default event
+     * @param  {Object} e mousewheel event
+     */
+
+  }, {
+    key: 'preventDefault',
+    value: function preventDefault(e) {
+      e.preventDefault();
     }
 
     /**
@@ -190,7 +200,7 @@ var FixWheel = function () {
   }, {
     key: 'fixWheel',
     value: function fixWheel(e) {
-      e.preventDefault();
+      this.preventDefault(e);
       this.rootNode.scrollTop += e.deltaY;
     }
   }]);

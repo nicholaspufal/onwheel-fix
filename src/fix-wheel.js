@@ -45,7 +45,8 @@ const mouseNeedsHelp = isSafari9
  * and destroyed when a root component is unmounted
  */
 class FixWheel {
-  constructor () {
+  constructor (eventName) {
+    this.eventName = eventName
     this.fixWheel = this.fixWheel.bind(this)
   }
 
@@ -58,8 +59,7 @@ class FixWheel {
   init (rootNode) {
     if (mouseNeedsHelp) {
       this.rootNode = rootNode
-      window.addEventListener('mousewheel', this.fixWheel, false)
-      window.addEventListener('wheel', this.preventDefault, false)
+      window.addEventListener(this.eventName, this.fixWheel, false)
       this.isFixed = true
     }
     return this.isFixed
@@ -72,8 +72,7 @@ class FixWheel {
    */
   destroy () {
     if (this.isFixed) {
-      window.removeEventListener('mousewheel', this.fixWheel)
-      window.removeEventListener('wheel', this.preventDefault)
+      window.removeEventListener(this.eventName, this.fixWheel)
       this.isFixed = false
     }
     return this.isFixed
