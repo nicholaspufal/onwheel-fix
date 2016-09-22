@@ -2,7 +2,8 @@
 /* global describe, it, window, document */
 global.window = global.window || {
   addEventListener: (event, handler, useCapture) => {},
-  removeEventListener: (event, handler, useCapture) => {}
+  removeEventListener: (event, handler, useCapture) => {},
+  getComputedStyle: (element, name) => ({})
 }
 global.document = global.document || {
   body: {
@@ -60,7 +61,15 @@ describe('FixWheel', () => {
       expect(wheel).itself.to.respondTo('fixWheel')
       wheel.init(document.body, true)
       wheel.preventDefault({preventDefault () {}})
-      wheel.fixWheel({deltaY: 0, preventDefault () {}})
+      wheel.fixWheel({
+        target: {
+          clientHeight: 200,
+          scrollHeight: 400,
+          scrollTop: 200
+        },
+        deltaY: 0,
+        preventDefault () {}
+      })
     })
 
     it('has an init method', () => {

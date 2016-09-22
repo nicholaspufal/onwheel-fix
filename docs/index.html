@@ -21,7 +21,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav class="main-nav">
-    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="FixWheel.html">FixWheel</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="FixWheel.html#destroy">destroy</a></li><li data-type='method'><a href="FixWheel.html#fixWheel">fixWheel</a></li><li data-type='method'><a href="FixWheel.html#init">init</a></li><li data-type='method'><a href="FixWheel.html#preventDefault">preventDefault</a></li></ul></li></ul><header class="nav-header"><h3>Global</h3></header><ul><li><a href="global.html#isSafari9">isSafari9</a></li><li><a href="global.html#majorVersion">majorVersion</a></li><li><a href="global.html#mouseNeedsHelp">mouseNeedsHelp</a></li></ul>
+    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="FixWheel.html">FixWheel</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="FixWheel.html#destroy">destroy</a></li><li data-type='method'><a href="FixWheel.html#fixWheel">fixWheel</a></li><li data-type='method'><a href="FixWheel.html#init">init</a></li><li data-type='method'><a href="FixWheel.html#preventDefault">preventDefault</a></li></ul></li></ul><header class="nav-header"><h3>Global</h3></header><ul><li><a href="global.html#isSafari">isSafari</a></li><li><a href="global.html#majorVersion">majorVersion</a></li><li><a href="global.html#mouseNeedsHelp">mouseNeedsHelp</a></li></ul>
 </nav>
 
 <main id="main" class="main-content">
@@ -47,22 +47,21 @@
     <section class="readme">
         <article class="card"><h1>onwheel-fix</h1><pre class="prettyprint source lang-shell"><code>npm install onwheel-fix</code></pre><p><a href="https://pixelass.github.io/onwheel-fix/">Documentation</a></p>
 <p><a href="https://www.npmjs.com/package/onwheel-fix"><img src="https://img.shields.io/npm/v/onwheel-fix.svg" alt="npm"></a>
-<a href="https://github.com/pixelass/onwheel-fix/blob/master/LICENSE"><img src="https://img.shields.io/github/license/pixelass/onwheel-fix.svg" alt="GitHub license"></a>
-<a href="https://travis-ci.org/pixelass/onwheel-fix"><img src="https://img.shields.io/travis/pixelass/onwheel-fix.svg" alt="Travis"></a>
+<a href="https://coveralls.io/github/pixelass/onwheel-fix"><img src="https://img.shields.io/coveralls/pixelass/onwheel-fix.svg" alt="Coveralls branch"></a>
+<a href="https://www.bithound.io/github/pixelass/onwheel-fix"><img src="https://img.shields.io/bithound/code/github/pixelass/onwheel-fix.svg" alt="Bithound Code"></a>
+<a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
+<a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a>
+<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a><br><a href="https://travis-ci.org/pixelass/onwheel-fix"><img src="https://img.shields.io/travis/pixelass/onwheel-fix.svg" alt="Travis"></a>
 <a href="https://david-dm.org/pixelass/onwheel-fix"><img src="https://img.shields.io/david/pixelass/onwheel-fix.svg" alt="David"></a>
-<a href="https://david-dm.org/pixelass/onwheel-fix#info=devDependencies&amp;view=table"><img src="https://img.shields.io/david/dev/pixelass/onwheel-fix.svg" alt="David"></a>
+<a href="https://david-dm.org/pixelass/onwheel-fix#info=devDependencies&amp;view=table"><img src="https://img.shields.io/david/dev/pixelass/onwheel-fix.svg" alt="David"></a><br><a href="https://github.com/pixelass/onwheel-fix/blob/master/LICENSE"><img src="https://img.shields.io/github/license/pixelass/onwheel-fix.svg" alt="GitHub license"></a>
 <a href="https://github.com/pixelass/onwheel-fix/issues"><img src="https://img.shields.io/github/issues/pixelass/onwheel-fix.svg" alt="GitHub issues"></a>
 <a href="https://github.com/pixelass/onwheel-fix/network"><img src="https://img.shields.io/github/forks/pixelass/onwheel-fix.svg" alt="GitHub forks"></a>
-<a href="https://github.com/pixelass/onwheel-fix/stargazers"><img src="https://img.shields.io/github/stars/pixelass/onwheel-fix.svg" alt="GitHub stars"></a>
-<a href="https://coveralls.io/github/pixelass/onwheel-fix"><img src="https://img.shields.io/coveralls/pixelass/onwheel-fix.svg" alt="Coveralls branch"></a>
-<a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg" alt="js-standard-style"></a>
-<a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
-<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a></p>
+<a href="https://github.com/pixelass/onwheel-fix/stargazers"><img src="https://img.shields.io/github/stars/pixelass/onwheel-fix.svg" alt="GitHub stars"></a>  </p>
 <p>Mousewheel fix for certain browsers that just don't get it right
 Includes:</p>
 <ul>
-<li>fix for Safari 9:
-in Safari 9 the default event is debounced, therefore broken.
+<li>fix for Safari 9 &amp; 10:
+in Safari 9 &amp; 10 the default event is debounced, therefore broken.
 The issue seems to occur due to the eleastic scroll and appeared with Safari 9
 which allows eleasic scroll in nested containers.
 to fix this issue the <code>html</code> and/or <code>body</code> element usually has to be set to <code>overflow: hidden;</code>.
@@ -97,7 +96,7 @@ mousewheel.destroy()</code></pre><h2>Methods</h2><h3><code>init(rootNode) -&gt; 
 
 
 <footer class="main-footer">
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Sep 05 2016 14:51:14 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Thu Sep 22 2016 20:26:26 GMT+0200 (CEST)
 </footer>
 
 <script>prettyPrint();</script>

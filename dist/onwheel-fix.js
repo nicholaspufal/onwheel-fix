@@ -163,7 +163,7 @@ var FixWheel = function () {
 
       if (mouseNeedsHelp || force) {
         this.rootNode = rootNode;
-        window.addEventListener(this.eventName, this.fixWheel, false);
+        this.rootNode.addEventListener(this.eventName, this.fixWheel, false);
         this.isFixed = true;
       }
       return this.isFixed;
@@ -179,7 +179,7 @@ var FixWheel = function () {
     key: 'destroy',
     value: function destroy() {
       if (this.isFixed) {
-        window.removeEventListener(this.eventName, this.fixWheel);
+        this.rootNode.removeEventListener(this.eventName, this.fixWheel);
         this.isFixed = false;
       }
       return this.isFixed;
@@ -206,7 +206,31 @@ var FixWheel = function () {
     key: 'fixWheel',
     value: function fixWheel(e) {
       this.preventDefault(e);
-      this.rootNode.scrollTop += e.deltaY;
+      var _e$target = e.target;
+      var clientHeight = _e$target.clientHeight;
+      var scrollHeight = _e$target.scrollHeight;
+      var scrollTop = _e$target.scrollTop;
+      // get compouted CSS so we can check if the `event.target` is scrollable
+
+      var css = window.getComputedStyle(e.target);
+      // check for `scroll` or `auto`
+      var scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto';
+      // check if the content is higher than the element
+      var overflows = clientHeight < scrollHeight;
+      // check if the element is fully scrolled top or bottom
+      var atEnd = clientHeight + scrollTop >= scrollHeight;
+      var atStart = scrollTop === 0;
+
+      // define a rootnode and optionally switch it to event target
+      var node = this.rootNode;
+      if (overflows && scrollable) {
+        if (e.deltaY > 0 && !atEnd) {
+          node = e.target;
+        } else if (e.deltaY < 0 && !atStart) {
+          node = e.target;
+        }
+      }
+      node.scrollTop += e.deltaY;
     }
   }]);
 

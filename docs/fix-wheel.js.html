@@ -21,7 +21,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav class="main-nav">
-    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="FixWheel.html">FixWheel</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="FixWheel.html#destroy">destroy</a></li><li data-type='method'><a href="FixWheel.html#fixWheel">fixWheel</a></li><li data-type='method'><a href="FixWheel.html#init">init</a></li><li data-type='method'><a href="FixWheel.html#preventDefault">preventDefault</a></li></ul></li></ul><header class="nav-header"><h3>Global</h3></header><ul><li><a href="global.html#isSafari9">isSafari9</a></li><li><a href="global.html#majorVersion">majorVersion</a></li><li><a href="global.html#mouseNeedsHelp">mouseNeedsHelp</a></li></ul>
+    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="FixWheel.html">FixWheel</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="FixWheel.html#destroy">destroy</a></li><li data-type='method'><a href="FixWheel.html#fixWheel">fixWheel</a></li><li data-type='method'><a href="FixWheel.html#init">init</a></li><li data-type='method'><a href="FixWheel.html#preventDefault">preventDefault</a></li></ul></li></ul><header class="nav-header"><h3>Global</h3></header><ul><li><a href="global.html#isSafari">isSafari</a></li><li><a href="global.html#majorVersion">majorVersion</a></li><li><a href="global.html#mouseNeedsHelp">mouseNeedsHelp</a></li></ul>
 </nav>
 
 <main id="main" class="main-content">
@@ -40,8 +40,8 @@
  * Mousewheel fix for certain browsers that just don't get it right
  * Includes:
  *
- * - fix for Safari 9:
- *   in Safari 9 the default event is debounced, therefore broken.
+ * - fix for Safari 9 &amp; 10:
+ *   in Safari 9 &amp; 10 the default event is debounced, therefore broken.
  *   The issue seems to occur due to the eleastic scroll and appeared with Safari 9
  *   which allows eleasic scroll in nested containers.
  *   to fix this issue the `html` and/or `body` element usually has to be set to `overflow: hidden;`.
@@ -64,18 +64,20 @@ import browser from 'detect-browser'
 const majorVersion = parseInt(browser.version.split('.')[0], 10)
 
 /**
- * flag to find Safari 9 since it is known to have a bug
+ * flag to find Safari 9 &amp; 10 since it is known to have a bug
  * @see  https://bugs.webkit.org/show_bug.cgi?id=149526
  * @type {Boolean}
  */
-const isSafari9 = (browser.name === 'safari' &amp;&amp; majorVersion === 9)
+const isSafari = (browser.name === 'safari')
+const isSafari9 = (isSafari &amp;&amp; majorVersion === 9)
+const isSafari10 = (isSafari &amp;&amp; majorVersion === 10)
 
 /**
  * flag to determine if we need to modify the `mousewheel` event
- * currently only Safari 9 gets this wrong.
+ * currently only Safari 9 &amp; 10 gets this wrong.
  * @type {Boolean}
  */
-const mouseNeedsHelp = isSafari9
+const mouseNeedsHelp = isSafari9 || isSafari10
 
 /**
  * allows to create an instance that can be initialised and destroyed when needed
@@ -94,10 +96,10 @@ class FixWheel {
    * @return {Boolean} returns `true` when applied, otherwise `false`.
    *                   Mainly used for debugging but can be used as a flag.
     */
-  init (rootNode) {
-    if (mouseNeedsHelp) {
+  init (rootNode, force = false) {
+    if (mouseNeedsHelp || force) {
       this.rootNode = rootNode
-      window.addEventListener(this.eventName, this.fixWheel, false)
+      this.rootNode.addEventListener(this.eventName, this.fixWheel, false)
       this.isFixed = true
     }
     return this.isFixed
@@ -110,7 +112,7 @@ class FixWheel {
    */
   destroy () {
     if (this.isFixed) {
-      window.removeEventListener(this.eventName, this.fixWheel)
+      this.rootNode.removeEventListener(this.eventName, this.fixWheel)
       this.isFixed = false
     }
     return this.isFixed
@@ -131,7 +133,27 @@ class FixWheel {
    */
   fixWheel (e) {
     this.preventDefault(e)
-    this.rootNode.scrollTop += e.deltaY
+    const {clientHeight, scrollHeight, scrollTop} = e.target
+    // get compouted CSS so we can check if the `event.target` is scrollable
+    const css = window.getComputedStyle(e.target)
+    // check for `scroll` or `auto`
+    const scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto'
+    // check if the content is higher than the element
+    const overflows = clientHeight &lt; scrollHeight
+    // check if the element is fully scrolled top or bottom
+    const atEnd = clientHeight + scrollTop >= scrollHeight
+    const atStart = scrollTop === 0
+
+    // define a rootnode and optionally switch it to event target
+    let node = this.rootNode
+    if (overflows &amp;&amp; scrollable) {
+      if (e.deltaY > 0 &amp;&amp; !atEnd) {
+        node = e.target
+      } else if (e.deltaY &lt; 0 &amp;&amp; !atStart) {
+        node = e.target
+      }
+    }
+    node.scrollTop += e.deltaY
   }
 }
 
@@ -149,7 +171,7 @@ export default FixWheel
 
 
 <footer class="main-footer">
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Mon Sep 05 2016 14:51:14 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Thu Sep 22 2016 20:26:26 GMT+0200 (CEST)
 </footer>
 
 <script>prettyPrint();</script>
