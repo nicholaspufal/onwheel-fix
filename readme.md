@@ -23,8 +23,8 @@ npm install onwheel-fix
 Mousewheel fix for certain browsers that just don't get it right
 Includes:
 
-- fix for Safari 9:
-  in Safari 9 the default event is debounced, therefore broken.
+- fix for Safari 9 & 10:
+  in Safari 9 & 10 the default event is debounced, therefore broken.
   The issue seems to occur due to the eleastic scroll and appeared with Safari 9
   which allows eleasic scroll in nested containers.
   to fix this issue the `html` and/or `body` element usually has to be set to `overflow: hidden;`.

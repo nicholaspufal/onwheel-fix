@@ -21,6 +21,7 @@ module.exports = function detectBrowser(userAgentString) {
   var browsers = [
     [ 'edge', /Edge\/([0-9\._]+)/ ],
     [ 'chrome', /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9\.]+)(:?\s|$)/ ],
+    [ 'crios', /CriOS\/([0-9\.]+)(:?\s|$)/ ],
     [ 'firefox', /Firefox\/([0-9\.]+)(?:\s|$)/ ],
     [ 'opera', /Opera\/([0-9\.]+)(?:\s|$)/ ],
     [ 'opera', /OPR\/([0-9\.]+)(:?\s|$)$/ ],
@@ -83,8 +84,8 @@ var _createClass = function () {
       * Mousewheel fix for certain browsers that just don't get it right
       * Includes:
       *
-      * - fix for Safari 9:
-      *   in Safari 9 the default event is debounced, therefore broken.
+      * - fix for Safari 9 & 10:
+      *   in Safari 9 & 10 the default event is debounced, therefore broken.
       *   The issue seems to occur due to the eleastic scroll and appeared with Safari 9
       *   which allows eleasic scroll in nested containers.
       *   to fix this issue the `html` and/or `body` element usually has to be set to `overflow: hidden;`.
@@ -119,18 +120,20 @@ function _classCallCheck(instance, Constructor) {
 var majorVersion = parseInt(_detectBrowser2.default.version.split('.')[0], 10);
 
 /**
- * flag to find Safari 9 since it is known to have a bug
+ * flag to find Safari 9 & 10 since it is known to have a bug
  * @see  https://bugs.webkit.org/show_bug.cgi?id=149526
  * @type {Boolean}
  */
-var isSafari9 = _detectBrowser2.default.name === 'safari' && majorVersion === 9;
+var isSafari = _detectBrowser2.default.name === 'safari';
+var isSafari9 = isSafari && majorVersion === 9;
+var isSafari10 = isSafari && majorVersion === 10;
 
 /**
  * flag to determine if we need to modify the `mousewheel` event
- * currently only Safari 9 gets this wrong.
+ * currently only Safari 9 & 10 gets this wrong.
  * @type {Boolean}
  */
-var mouseNeedsHelp = isSafari9;
+var mouseNeedsHelp = isSafari9 || isSafari10;
 
 /**
  * allows to create an instance that can be initialised and destroyed when needed
@@ -156,7 +159,9 @@ var FixWheel = function () {
   _createClass(FixWheel, [{
     key: 'init',
     value: function init(rootNode) {
-      if (mouseNeedsHelp) {
+      var force = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
+
+      if (mouseNeedsHelp || force) {
         this.rootNode = rootNode;
         window.addEventListener(this.eventName, this.fixWheel, false);
         this.isFixed = true;
