@@ -43,6 +43,7 @@
     "**/extjs/src/**",
     "**/extjs/welcome/**",
     "**/examples/**",
+    "**/dist/**",
     "**/docs/**",
     "bower_components/**"
   ],

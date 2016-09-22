@@ -9,7 +9,7 @@
     "babel": "babel src --out-dir lib",
     "build": "npm run babel; node build",
     "prepublish": "npm run build",
-    "lint": "eslint src",
+    "lint": "eslint src build.js dist.js",
     "posttest": "npm run lint",
     "prepush": "npm test",
     "release": "standard-version",
