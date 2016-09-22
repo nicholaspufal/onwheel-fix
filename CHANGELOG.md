@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/pixelass/onwheel-fix/compare/v0.3.1...v0.3.2) (2016-09-22)
+
+
+### Bug Fixes
+
+* **nesting:** allow nested scroll areas ([b41a214](https://github.com/pixelass/onwheel-fix/commit/b41a214))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/pixelass/onwheel-fix/compare/v0.3.0...v0.3.1) (2016-09-22)
 
