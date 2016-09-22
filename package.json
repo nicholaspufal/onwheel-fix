@@ -8,9 +8,10 @@
     "docs": "rm -rf docs && mkdir docs && jsdoc -c jsdoc.json",
     "babel": "babel src --out-dir lib",
     "build": "npm run babel; node build",
-    "prepublish": "npm run build",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "lint": "eslint src build.js dist.js",
     "posttest": "npm run lint",
+    "prepublish": "npm run build",
     "prepush": "npm test",
     "release": "standard-version",
     "test": "babel-node ./node_modules/istanbul/lib/cli.js cover _mocha -- ./src/**/spec/*.js"
