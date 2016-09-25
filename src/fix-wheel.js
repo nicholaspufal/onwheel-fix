@@ -50,6 +50,7 @@ class FixWheel {
   constructor (eventName) {
     this.eventName = eventName
     this.fixWheel = this.fixWheel.bind(this)
+    this.checkOverflow = this.checkOverflow.bind(this)
   }
 
   /**
@@ -89,33 +90,52 @@ class FixWheel {
   }
 
   /**
+   * check the overflow. If it is `scroll` or `auto`, check the scrollOffset.
+   * If the element is scrollable, apply scrollTop, otherwise check the `parentNode`
+   * @param  {HTMLElement} el the starts a the `event.target` then any ancestor of that element
+   * @return {HTMLElement}            Returns the original element or the next scrollable ancestor.
+   *                                  Returns `null` if no element matched the criteria.
+   */
+  checkOverflow (el, deltaY) {
+    const {clientHeight, scrollHeight, scrollTop} = el
+    // get compouted CSS so we can check if the element is scrollable
+    const css = window.getComputedStyle(el)
+    const scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto'
+    if (scrollable) {
+      // check if the content is higher than the element
+      const overflows = clientHeight < scrollHeight
+      if (overflows) {
+        // check if the element is fully scrolled top or bottom
+        const atEnd = clientHeight + scrollTop >= scrollHeight
+        const atStart = scrollTop === 0
+        if ((deltaY > 0 && !atEnd) || (deltaY < 0 && !atStart)) {
+          return el
+        } else if (deltaY === 0) {
+          return null
+        }
+      }
+    }
+    // check for `parentNode` otherwise proceed and return `null`
+    if (el.parentNode) {
+      if (el.parentNode === this.rootNode) {
+        return this.rootNode
+      }
+      return this.checkOverflow(el.parentNode, deltaY)
+    }
+    return null
+  }
+
+  /**
    * the actual fix for the issue.
    * @param  {Object} e mousewheel event
    * @param  {Number} e.deltaY wheel delta on the y-axis (if undefined simply does nothing)
    */
   fixWheel (e) {
     this.preventDefault(e)
-    const {clientHeight, scrollHeight, scrollTop} = e.target
-    // get compouted CSS so we can check if the `event.target` is scrollable
-    const css = window.getComputedStyle(e.target)
-    // check for `scroll` or `auto`
-    const scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto'
-    // check if the content is higher than the element
-    const overflows = clientHeight < scrollHeight
-    // check if the element is fully scrolled top or bottom
-    const atEnd = clientHeight + scrollTop >= scrollHeight
-    const atStart = scrollTop === 0
-
-    // define a rootnode and optionally switch it to event target
-    let node = this.rootNode
-    if (overflows && scrollable) {
-      if (e.deltaY > 0 && !atEnd) {
-        node = e.target
-      } else if (e.deltaY < 0 && !atStart) {
-        node = e.target
-      }
+    const node = this.checkOverflow(e.target, e.deltaY)
+    if (node) {
+      node.scrollTop += e.deltaY
     }
-    node.scrollTop += e.deltaY
   }
 }
 

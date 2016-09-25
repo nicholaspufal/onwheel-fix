@@ -147,6 +147,7 @@ var FixWheel = function () {
 
     this.eventName = eventName;
     this.fixWheel = this.fixWheel.bind(this);
+    this.checkOverflow = this.checkOverflow.bind(this);
   }
 
   /**
@@ -197,6 +198,48 @@ var FixWheel = function () {
     }
 
     /**
+     * check the overflow. If it is `scroll` or `auto`, check the scrollOffset.
+     * If the element is scrollable, apply scrollTop, otherwise check the `parentNode`
+     * @param  {HTMLElement} el the starts a the `event.target` then any ancestor of that element
+     * @return {HTMLElement}            Returns the original element or the next scrollable ancestor.
+     *                                  Returns `null` if no element matched the criteria.
+     */
+
+  }, {
+    key: 'checkOverflow',
+    value: function checkOverflow(el, deltaY) {
+      var clientHeight = el.clientHeight;
+      var scrollHeight = el.scrollHeight;
+      var scrollTop = el.scrollTop;
+      // get compouted CSS so we can check if the element is scrollable
+
+      var css = getComputedStyle(el);console.log(css);
+      var scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto';
+      if (scrollable) {
+        // check if the content is higher than the element
+        var overflows = clientHeight < scrollHeight;
+        if (overflows) {
+          // check if the element is fully scrolled top or bottom
+          var atEnd = clientHeight + scrollTop >= scrollHeight;
+          var atStart = scrollTop === 0;
+          if (deltaY > 0 && !atEnd || deltaY < 0 && !atStart) {
+            return el;
+          } else if (deltaY === 0) {
+            return null;
+          }
+        }
+      }
+      // check for `parentNode` otherwise proceed and return `null`
+      if (el.parentNode) {
+        if (el.parentNode === this.rootNode) {
+          return this.rootNode;
+        }
+        return this.checkOverflow(el.parentNode, deltaY);
+      }
+      return null;
+    }
+
+    /**
      * the actual fix for the issue.
      * @param  {Object} e mousewheel event
      * @param  {Number} e.deltaY wheel delta on the y-axis (if undefined simply does nothing)
@@ -206,31 +249,10 @@ var FixWheel = function () {
     key: 'fixWheel',
     value: function fixWheel(e) {
       this.preventDefault(e);
-      var _e$target = e.target;
-      var clientHeight = _e$target.clientHeight;
-      var scrollHeight = _e$target.scrollHeight;
-      var scrollTop = _e$target.scrollTop;
-      // get compouted CSS so we can check if the `event.target` is scrollable
-
-      var css = window.getComputedStyle(e.target);
-      // check for `scroll` or `auto`
-      var scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto';
-      // check if the content is higher than the element
-      var overflows = clientHeight < scrollHeight;
-      // check if the element is fully scrolled top or bottom
-      var atEnd = clientHeight + scrollTop >= scrollHeight;
-      var atStart = scrollTop === 0;
-
-      // define a rootnode and optionally switch it to event target
-      var node = this.rootNode;
-      if (overflows && scrollable) {
-        if (e.deltaY > 0 && !atEnd) {
-          node = e.target;
-        } else if (e.deltaY < 0 && !atStart) {
-          node = e.target;
-        }
+      var node = this.checkOverflow(e.target, e.deltaY);
+      if (node) {
+        node.scrollTop += e.deltaY;
       }
-      node.scrollTop += e.deltaY;
     }
   }]);
 

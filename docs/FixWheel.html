@@ -21,7 +21,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav class="main-nav">
-    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="FixWheel.html">FixWheel</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="FixWheel.html#destroy">destroy</a></li><li data-type='method'><a href="FixWheel.html#fixWheel">fixWheel</a></li><li data-type='method'><a href="FixWheel.html#init">init</a></li><li data-type='method'><a href="FixWheel.html#preventDefault">preventDefault</a></li></ul></li></ul><header class="nav-header"><h3>Global</h3></header><ul><li><a href="global.html#isSafari">isSafari</a></li><li><a href="global.html#majorVersion">majorVersion</a></li><li><a href="global.html#mouseNeedsHelp">mouseNeedsHelp</a></li></ul>
+    <header class="nav-header"><h2><a href="index.html">Home</a></h2></header><header class="nav-header"><h3><span>Classes</span></h3></header><ul><li><a href="FixWheel.html">FixWheel</a><ul class='methods'><li class='nav-type-header'>Methods</li><li data-type='method'><a href="FixWheel.html#checkOverflow">checkOverflow</a></li><li data-type='method'><a href="FixWheel.html#destroy">destroy</a></li><li data-type='method'><a href="FixWheel.html#fixWheel">fixWheel</a></li><li data-type='method'><a href="FixWheel.html#init">init</a></li><li data-type='method'><a href="FixWheel.html#preventDefault">preventDefault</a></li></ul></li></ul><header class="nav-header"><h3>Global</h3></header><ul><li><a href="global.html#isSafari">isSafari</a></li><li><a href="global.html#majorVersion">majorVersion</a></li><li><a href="global.html#mouseNeedsHelp">mouseNeedsHelp</a></li></ul>
 </nav>
 
 <main id="main" class="main-content">
@@ -161,13 +161,184 @@ and destroyed when a root component is unmounted</p></div>
 
         
             
+<article class="card card__function" id="checkOverflow">
+
+
+<section class="code-source">
+  <div class="link-box">
+    
+    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line99">line 99</a>
+    
+  </div>
+</section>
+
+
+    
+      <h2 >checkOverflow</h2>
+    
+    
+        
+
+        <h4 class="name"><span class="type-signature"></span>checkOverflow<span class="signature">(el)</span><span class="type-signature"> &rarr; {HTMLElement}</span></h4>
+    
+
+    
+
+
+    
+    <div class="description">
+        <p>check the overflow. If it is <code>scroll</code> or <code>auto</code>, check the scrollOffset.
+If the element is scrollable, apply scrollTop, otherwise check the <code>parentNode</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+<div class="table-scroll">
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>el</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="__tag param-type param-type-htmlelement">HTMLElement</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the starts a the <code>event.target</code> then any ancestor of that element</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</div>
+
+    
+
+    
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Returns the original element or the next scrollable ancestor.
+                                 Returns <code>null</code> if no element matched the criteria.</p>
+</div>
+
+
+
+<dl class="details">
+    <dt>
+        Type
+    </dt>
+    <dd>
+      <!--%= data.type.names ?-->
+      
+<span class="__tag param-type param-type-htmlelement">HTMLElement</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+    </article>
+
+        
+            
 <article class="card card__function" id="destroy">
 
 
 <section class="code-source">
   <div class="link-box">
     
-    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line75">line 75</a>
+    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line76">line 76</a>
     
   </div>
 </section>
@@ -287,7 +458,7 @@ and destroyed when a root component is unmounted</p></div>
 <section class="code-source">
   <div class="link-box">
     
-    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line96">line 96</a>
+    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line133">line 133</a>
     
   </div>
 </section>
@@ -487,7 +658,7 @@ and destroyed when a root component is unmounted</p></div>
 <section class="code-source">
   <div class="link-box">
     
-    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line61">line 61</a>
+    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line62">line 62</a>
     
   </div>
 </section>
@@ -659,7 +830,7 @@ and destroyed when a root component is unmounted</p></div>
 <section class="code-source">
   <div class="link-box">
     
-    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line87">line 87</a>
+    <a href="fix-wheel.js.html">fix-wheel.js</a> <a href="fix-wheel.js.html#line88">line 88</a>
     
   </div>
 </section>
@@ -815,7 +986,7 @@ and destroyed when a root component is unmounted</p></div>
 
 
 <footer class="main-footer">
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Thu Sep 22 2016 20:26:26 GMT+0200 (CEST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Sun Sep 25 2016 18:18:51 GMT+0200 (CEST)
 </footer>
 
 <script>prettyPrint();</script>

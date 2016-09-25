@@ -58,6 +58,7 @@ describe('FixWheel', () => {
       expect(wheel).itself.to.respondTo('init')
       expect(wheel).itself.to.respondTo('destroy')
       expect(wheel).itself.to.respondTo('preventDefault')
+      expect(wheel).itself.to.respondTo('checkOverflow')
       expect(wheel).itself.to.respondTo('fixWheel')
       wheel.init(document.body, true)
       wheel.preventDefault({preventDefault () {}})
@@ -78,7 +79,7 @@ describe('FixWheel', () => {
       expect(wheel.init).to.be.a('function')
     })
 
-    it('has an destroy method', () => {
+    it('has a destroy method', () => {
       const wheel = new FixWheel('wheel')
       expect(wheel).itself.to.respondTo('destroy')
       expect(wheel.destroy).to.be.a('function')
