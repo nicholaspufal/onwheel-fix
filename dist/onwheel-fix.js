@@ -213,7 +213,7 @@ var FixWheel = function () {
       var scrollTop = el.scrollTop;
       // get compouted CSS so we can check if the element is scrollable
 
-      var css = getComputedStyle(el);console.log(css);
+      var css = window.getComputedStyle(el);
       var scrollable = css.overflowY === 'scroll' || css.overflowY === 'auto';
       if (scrollable) {
         // check if the content is higher than the element
